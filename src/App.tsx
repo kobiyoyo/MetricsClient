@@ -1,9 +1,13 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import SiteList from './components/site/SiteList';
 
 const App = () => (
-  <div>
-    <h1>Hello</h1>
-  </div>
+  <Router>
+    <Switch>
+      <Route component={SiteList} path="/" exact />
+    </Switch>
+  </Router>
 
 );
 
