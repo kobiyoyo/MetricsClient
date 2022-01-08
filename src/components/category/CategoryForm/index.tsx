@@ -4,7 +4,7 @@ import {
 } from 'antd';
 import { Formik, FormikHelpers } from 'formik';
 import {
-  Form, FormikDebug, FormItem, ResetButton, SubmitButton, Input,
+  Form, FormItem, ResetButton, SubmitButton, Input,
 } from 'formik-antd';
 import InputFormField from '../../../utils/input/Input';
 import { CategoryFormValidation } from '../schema/CategoryFormValidation';
