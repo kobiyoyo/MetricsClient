@@ -1,10 +1,15 @@
-import { CamelToSnakeCaseObject } from '../../helpers';
+import { CamelToSnakeCaseNested } from '../../helpers';
 
 type InputType = {
     id: number;
-    value: string;
-    categoryId: number;
+    value: number;
+    category: {
+      id: number;
+      name: string;
+      siteId: number;
+    }
   }
-
-export type MetricApiProps = CamelToSnakeCaseObject<InputType>
+type AddInputType = { values: number; categoryId: number };
+export type MetricApiProps = CamelToSnakeCaseNested<InputType>
 export type MetricsApiProps = MetricApiProps[];
+export type AddMerticProps = CamelToSnakeCaseNested<AddInputType>

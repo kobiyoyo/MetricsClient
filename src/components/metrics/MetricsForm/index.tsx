@@ -1,26 +1,34 @@
 import React from 'react';
 import {
-  Col, Row, Typography,
+  Col, message, Row, Typography,
 } from 'antd';
 import { Formik, FormikHelpers } from 'formik';
 import {
-  Form, FormikDebug, FormItem, ResetButton, SubmitButton, Input, Select,
+  Form, FormItem, ResetButton, SubmitButton, Select,
 } from 'formik-antd';
 import InputFormField from '../../../utils/input/Input';
 import { MetricsFormValidation } from '../schema/MetricsFormValidation';
 import { initialValues } from '../schema/MetricsDefaultValues';
 import { MetricsFormValues } from '../types';
+import { metricService } from '../../../services';
 
-const MetricsForm = ({ siteId }: { siteId: number}) => {
-  const id = siteId;
+const MetricsForm = () => {
   const { Option } = Select;
   const { Text } = Typography;
-
-  const onSubmit = (
+  const { useAddMetricMutation } = metricService;
+  const [addMetric, { isLoading: isAdding }] = useAddMetricMutation();
+  const onSubmit = async (
     values: MetricsFormValues,
-    { setSubmitting }: FormikHelpers<MetricsFormValues>,
+    { setSubmitting, resetForm }: FormikHelpers<MetricsFormValues>,
   ) => {
-    console.log(values);
+    try {
+      await addMetric({ ...values, category_id: +values.category_id });
+      message.success('Metric successfully created', 2);
+      resetForm();
+    } catch (e) {
+      console.error('Error', e);
+      message.error("We couldn't create a metric, try again!", 2);
+    }
     setSubmitting(false);
   };
   return (
@@ -37,18 +45,24 @@ const MetricsForm = ({ siteId }: { siteId: number}) => {
                   <Row justify="center">
                     <Col xs={7} sm={7} md={7} lg={7} xl={7}>
                       <InputFormField
-                        name="name"
+                        name="value"
                         size="middle"
-                        placeholder="Name"
+                        placeholder="Value"
+                        type="number"
                       />
                       {formikProps.touched.value
                       && formikProps.errors.value && <Text className="text-red-600">{formikProps.errors.value}</Text>}
                     </Col>
-                    <Col xs={7} sm={7} md={7} lg={7} xl={7}>
-                      <Select name="placement" defaultValue="Select">
-                        <Option value="2">Food</Option>
+                    <Col xs={10} sm={10} md={10} lg={10} xl={10}>
+                      <Select name="category_id" defaultValue="select">
+                        <Option value="select">Select</Option>
+                        <Option value="1">Food</Option>
                         <Option value="3">Ring</Option>
                       </Select>
+                    </Col>
+                    <Col xs={14} sm={14} md={14} lg={14} xl={14}>
+                      {formikProps.touched.category_id
+                      && formikProps.errors.category_id && <Text className="text-red-600">{formikProps.errors.category_id}</Text>}
                     </Col>
                   </Row>
                 </Col>
@@ -56,7 +70,7 @@ const MetricsForm = ({ siteId }: { siteId: number}) => {
                   <Row justify="center">
                     <Col xs={7} sm={7} md={7} lg={7} xl={7}>
                       <FormItem name="button">
-                        <SubmitButton size="large" className="bg-blue-900">Save</SubmitButton>
+                        <SubmitButton size="large" className="bg-blue-900" disabled={isAdding}>Save</SubmitButton>
                         <ResetButton className="mx-4" size="large">
                           Cancel
                         </ResetButton>

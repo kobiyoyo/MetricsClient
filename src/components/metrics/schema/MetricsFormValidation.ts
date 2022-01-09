@@ -2,5 +2,6 @@
 import * as Yup from 'yup';
 
 export const MetricsFormValidation = Yup.object({
-  value: Yup.string().required('Required').min(3, 'must be at least 3 characters long'),
+  value: Yup.number().required('Value is Required').min(1).max(100),
+  category_id: Yup.string().required('Category is Required'),
 });
