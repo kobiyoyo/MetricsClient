@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Col, Row, Typography,
+  Col, message, Row, Typography,
 } from 'antd';
 import { Formik, FormikHelpers } from 'formik';
 import {
@@ -10,17 +10,25 @@ import InputFormField from '../../../utils/input/Input';
 import { SiteFormValidation } from '../schema/SiteFormValidation';
 import { initialValues } from '../schema/SiteDefaultValues';
 import { SiteFormValues } from '../types';
+import { siteService } from '../../../services';
 
 const SiteForm = () => {
-  const onSubmit = (
+  const { Text } = Typography;
+  const { useAddSiteMutation } = siteService;
+  const [addSite, { isLoading: isAdding }] = useAddSiteMutation();
+
+  const onSubmit = async (
     values: SiteFormValues,
     { setSubmitting }: FormikHelpers<SiteFormValues>,
   ) => {
-    console.log(values);
+    try {
+      await addSite(values).unwrap();
+    } catch (e) {
+      console.error('Error', e);
+      message.error("We couldn't create a site, try again!", 2);
+    }
     setSubmitting(false);
   };
-
-  const { Text } = Typography;
 
   return (
     <Row>
@@ -49,7 +57,7 @@ const SiteForm = () => {
                   <Row justify="center">
                     <Col xs={7} sm={7} md={7} lg={7} xl={7}>
                       <FormItem name="button">
-                        <SubmitButton size="large" className="bg-blue-900">Save</SubmitButton>
+                        <SubmitButton disabled={isAdding} size="large" className="bg-blue-900">Save</SubmitButton>
                         <ResetButton className="mx-4" size="large">
                           Cancel
                         </ResetButton>
