@@ -31,6 +31,17 @@ class BaseService implements BaseServiceProps {
     };
   }
 
+  // addEntity() {
+  //   return {
+  //     query: (body: any) => ({
+  //       url: this.url,
+  //       method: 'POST',
+  //       body,
+  //     }),
+  //     invalidatesTags: [{ type: this.tagType, id: 'LIST' }],
+  //   };
+  // }
+
   addEntity<T>(body: T) {
     return {
       url: this.url,
