@@ -16,6 +16,7 @@ const siteApi = siteTag.injectEndpoints({
       query: (body) => site.addEntity(body),
       invalidatesTags: [{ type: site.tagType, id: 'LIST' }],
     }),
+    // addSite: builder.mutation<SiteApiProps, Partial<SiteApiProps>>(site.addEntity()),
     deleteSite: builder.mutation<{ success: boolean; id: number }, number>({
       query: (id) => site.deleteEntity(id),
       invalidatesTags: (result, error, id) => [{ type: site.tagType, id }],
