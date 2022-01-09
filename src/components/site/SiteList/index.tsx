@@ -1,10 +1,10 @@
 import React from 'react';
 import {
-  Button, Col, Input, message, Modal, Row, Skeleton,
+  Col, message, Modal, Row, Skeleton,
 } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-import Card from '../../../utils/card/Card';
+import ActionCard from '../../../utils/card/ActionCard';
 import Title from '../../../utils/title/Title';
 import SiteForm from '../SiteForm';
 import { siteService } from '../../../services';
@@ -33,9 +33,9 @@ const SiteList = () => {
       onOk: () => handleDeleteSite(id),
     });
   };
-  const displaySite = sites?.length ? sites?.map((site) => (
+  const displaySites = sites?.length ? sites?.map((site) => (
     <Skeleton loading={isLoading} active key={site.id}>
-      <Card
+      <ActionCard
         size={24}
         title={site.name}
         id={site.id}
@@ -57,7 +57,7 @@ const SiteList = () => {
         <Row justify="center">
           <Col md={7} xl={7}>
             <Row gutter={[0, 50]}>
-              {displaySite}
+              {displaySites}
             </Row>
           </Col>
         </Row>

@@ -16,8 +16,8 @@ const categoryApi = categoryTag.injectEndpoints({
       query: (body) => category.addEntity(body),
       invalidatesTags: [{ type: category.tagType, id: 'LIST' }],
     }),
-    getCategories: builder.query<CategoriesApiProps, void>({
-      query: () => category.getEntities(),
+    getCategories: builder.query<CategoriesApiProps, number>({
+      query: (siteId) => category.getCategories(siteId),
       providesTags: (result) => providesList(result, category.tagType),
     }),
   }),

@@ -19,10 +19,12 @@ const SiteForm = () => {
 
   const onSubmit = async (
     values: SiteFormValues,
-    { setSubmitting }: FormikHelpers<SiteFormValues>,
+    { setSubmitting, resetForm }: FormikHelpers<SiteFormValues>,
   ) => {
     try {
       await addSite(values).unwrap();
+      message.success('Site successfully created', 2);
+      resetForm();
     } catch (e) {
       console.error('Error', e);
       message.error("We couldn't create a site, try again!", 2);
