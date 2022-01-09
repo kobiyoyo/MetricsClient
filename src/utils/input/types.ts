@@ -4,4 +4,5 @@ export type FormInputValues = {
     name: string;
     placeholder?: string;
     size: SizeType;
+    type?: string
   };
