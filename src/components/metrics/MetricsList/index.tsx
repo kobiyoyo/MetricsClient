@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Button, Col, Table as AntdTable, Row,
+  Col, Table as AntdTable, Row,
 } from 'antd';
 import { useParams } from 'react-router-dom';
 import Title from '../../../utils/title/Title';
@@ -30,7 +30,7 @@ const MetricsList = () => {
     },
   ];
   if (isError) {
-    return <div>Ops,Something is Wrong</div>;
+    return <div>Ops,Something went Wrong</div>;
     console.error(error);
   }
   return (

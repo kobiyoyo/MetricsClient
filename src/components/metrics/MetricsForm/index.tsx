@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import React from 'react';
 import {
   Col, message, Row, Typography,
@@ -6,13 +7,17 @@ import { Formik, FormikHelpers } from 'formik';
 import {
   Form, FormItem, ResetButton, SubmitButton, Select,
 } from 'formik-antd';
+import { useParams } from 'react-router-dom';
 import InputFormField from '../../../utils/input/Input';
 import { MetricsFormValidation } from '../schema/MetricsFormValidation';
 import { initialValues } from '../schema/MetricsDefaultValues';
 import { MetricsFormValues } from '../types';
-import { metricService } from '../../../services';
+import { categoryService, metricService } from '../../../services';
 
 const MetricsForm = () => {
+  const { id } = useParams<{id: string}>();
+  const { useGetCategoriesQuery } = categoryService;
+  const { data: categories } = useGetCategoriesQuery(+id);
   const { Option } = Select;
   const { Text } = Typography;
   const { useAddMetricMutation } = metricService;
@@ -31,6 +36,8 @@ const MetricsForm = () => {
     }
     setSubmitting(false);
   };
+  const CategoryOptions = categories?.map((category) =>
+    (<Option key={category.id} value={category.id}>{category.name}</Option>));
   return (
     <Row>
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
@@ -56,8 +63,7 @@ const MetricsForm = () => {
                     <Col xs={10} sm={10} md={10} lg={10} xl={10}>
                       <Select name="category_id" defaultValue="select">
                         <Option value="select">Select</Option>
-                        <Option value="1">Food</Option>
-                        <Option value="3">Ring</Option>
+                        {CategoryOptions}
                       </Select>
                     </Col>
                     <Col xs={14} sm={14} md={14} lg={14} xl={14}>

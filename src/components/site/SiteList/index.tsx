@@ -46,7 +46,7 @@ const SiteList = () => {
   )) : 'No Site kindly create one';
 
   if (isError) {
-    return <div>Ops,Something is Wrong</div>;
+    return <div>Ops,Something went Wrong</div>;
     console.error(error);
   }
   return (

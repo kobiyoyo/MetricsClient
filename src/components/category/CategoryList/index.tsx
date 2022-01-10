@@ -25,10 +25,9 @@ const CategoryList = () => {
   )) : 'No Category kindly create one';
 
   if (isError) {
-    return <div>Ops,Something is Wrong</div>;
+    return <div>Ops,Something went Wrong</div>;
     console.error(error);
   }
-  console.log(categories);
   return (
     <Row>
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
