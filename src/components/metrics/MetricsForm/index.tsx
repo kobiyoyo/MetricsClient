@@ -16,10 +16,10 @@ import { categoryService, metricService } from '../../../services';
 
 const MetricsForm = () => {
   const { id } = useParams<{id: string}>();
-  const { useGetCategoriesQuery } = categoryService;
-  const { data: categories } = useGetCategoriesQuery(+id);
   const { Option } = Select;
   const { Text } = Typography;
+  const { useGetCategoriesQuery } = categoryService;
+  const { data: categories } = useGetCategoriesQuery(+id);
   const { useAddMetricMutation } = metricService;
   const [addMetric, { isLoading: isAdding }] = useAddMetricMutation();
   const onSubmit = async (
@@ -30,6 +30,7 @@ const MetricsForm = () => {
       await addMetric({ ...values, category_id: +values.category_id });
       message.success('Metric successfully created', 2);
       resetForm();
+      window.location.reload();
     } catch (e) {
       console.error('Error', e);
       message.error("We couldn't create a metric, try again!", 2);
@@ -47,10 +48,10 @@ const MetricsForm = () => {
           validationSchema={MetricsFormValidation}
           render={(formikProps) => (
             <Form layout="vertical">
-              <Row gutter={[0, 20]}>
-                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+              <Row gutter={[10, 10]}>
+                <Col xs={10} sm={10} md={10} lg={10} xl={10}>
                   <Row justify="center">
-                    <Col xs={7} sm={7} md={7} lg={7} xl={7}>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} className="mb-5">
                       <InputFormField
                         name="value"
                         size="middle"
@@ -60,20 +61,18 @@ const MetricsForm = () => {
                       {formikProps.touched.value
                       && formikProps.errors.value && <Text className="text-red-600">{formikProps.errors.value}</Text>}
                     </Col>
-                    <Col xs={10} sm={10} md={10} lg={10} xl={10}>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                       <Select name="category_id" defaultValue="select">
                         <Option value="select">Select</Option>
                         {CategoryOptions}
                       </Select>
-                    </Col>
-                    <Col xs={14} sm={14} md={14} lg={14} xl={14}>
                       {formikProps.touched.category_id
                       && formikProps.errors.category_id && <Text className="text-red-600">{formikProps.errors.category_id}</Text>}
                     </Col>
                   </Row>
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                  <Row justify="center">
+                  <Row justify="start">
                     <Col xs={7} sm={7} md={7} lg={7} xl={7}>
                       <FormItem name="button">
                         <SubmitButton size="large" className="bg-blue-900" disabled={isAdding}>Save</SubmitButton>
