@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Col, List, Row, Skeleton, Typography,
+  Col, Row, Skeleton,
 } from 'antd';
 import { useParams } from 'react-router-dom';
 import Card from '../../../utils/card/Card';

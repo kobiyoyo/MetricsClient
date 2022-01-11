@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import { providesList } from '../../helpers';
 import baseApi from '../../features/baseSlice';
 import Average from './average';
 import { AveragesApiProps } from './types';

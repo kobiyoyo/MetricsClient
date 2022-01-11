@@ -8,7 +8,7 @@ import SiteDetail from './site/SiteDetail/index';
 
 const AppPath = () => {
   const {
-    Header, Content, Footer, Sider,
+    Content,
   } = Layout;
   return (
     <Router>

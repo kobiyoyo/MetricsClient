@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card as AntdCard, Col, Row, Statistic,
+  Card as AntdCard, Col, Statistic,
 } from 'antd';
 import { StatsCardProps } from './types';
 

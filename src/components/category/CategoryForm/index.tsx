@@ -6,7 +6,7 @@ import { Formik, FormikHelpers } from 'formik';
 import {
   Form, FormItem, ResetButton, SubmitButton,
 } from 'formik-antd';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import InputFormField from '../../../utils/input/Input';
 import { CategoryFormValidation } from '../schema/CategoryFormValidation';
 import { initialValues } from '../schema/CategoryDefaultValues';

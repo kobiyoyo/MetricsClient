@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card as AntdCard, Col, Row } from 'antd';
-import { EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import { CardProps } from './types';
 
 const Card = ({
