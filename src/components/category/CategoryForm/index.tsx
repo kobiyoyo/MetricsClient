@@ -6,7 +6,7 @@ import { Formik, FormikHelpers } from 'formik';
 import {
   Form, FormItem, ResetButton, SubmitButton,
 } from 'formik-antd';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import InputFormField from '../../../utils/input/Input';
 import { CategoryFormValidation } from '../schema/CategoryFormValidation';
 import { initialValues } from '../schema/CategoryDefaultValues';
@@ -25,7 +25,7 @@ const CategoryForm = () => {
   ) => {
     try {
       await addCategory({ ...values, site_id: +id }).unwrap();
-      message.success('Category successfully created', 2);
+      message.success(`Category successfully created ${values.name} category`, 2);
       resetForm();
     } catch (e) {
       console.error('Error', e);

@@ -23,7 +23,7 @@ const SiteForm = () => {
   ) => {
     try {
       await addSite(values).unwrap();
-      message.success('Site successfully created', 2);
+      message.success(`Site successfully created ${values.name} site`, 2);
       resetForm();
     } catch (e) {
       console.error('Error', e);
