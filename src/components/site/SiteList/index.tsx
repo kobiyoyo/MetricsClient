@@ -28,7 +28,7 @@ const SiteList = () => {
   };
   const confirmDeleteWorker = (id: number) => {
     confirm({
-      title: 'Do you want to delete this worker?',
+      title: 'Do you want to delete this site?',
       icon: <ExclamationCircleOutlined />,
       onOk: () => handleDeleteSite(id),
     });

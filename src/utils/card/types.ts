@@ -5,3 +5,9 @@ export type CardProps = {
     handleDelete: (idx: number) => void
     handleView: (idx: number) => void
 }
+
+export type StatsCardProps = {
+    value: number | undefined;
+    title: string;
+    loading: boolean
+}

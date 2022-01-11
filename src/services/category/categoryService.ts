@@ -6,7 +6,7 @@ import { CategoryApiProps, CategoriesApiProps } from './types';
 
 const category = new Category('categories', 'Category');
 
-// Add Tag for cache data
+// Add Tag for cached data
 const categoryTag = baseApi.enhanceEndpoints({ addTagTypes: [category.tagType] });
 
 // Create Query for CRUD operation

@@ -6,7 +6,7 @@ import { SiteApiProps, SitesApiProps } from './types';
 
 const site = new Site('sites', 'Site');
 
-// Add Tag for cache data
+// Add Tag for cached data
 const siteTag = baseApi.enhanceEndpoints({ addTagTypes: [site.tagType] });
 
 // Create Query for CRUD operation
