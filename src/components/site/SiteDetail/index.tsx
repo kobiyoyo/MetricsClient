@@ -4,16 +4,20 @@ import { useHistory } from 'react-router-dom';
 import MetricsList from '../../metrics/MetricsList';
 import CategoryList from '../../category/CategoryList';
 import Chart from './Chart';
+import Averages from './Averages';
 
 const SiteDetail = () => {
   const { goBack } = useHistory();
   return (
-    <Row>
+    <Row gutter={[34, 43]}>
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Button onClick={() => goBack()}>Back</Button>
       </Col>
       <Col xs={24} sm={24} md={24} lg={24} xl={24}>
         <Chart />
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+        <Averages />
       </Col>
       <Col xs={15} sm={15} md={15} lg={15} xl={15}>
         <MetricsList />
