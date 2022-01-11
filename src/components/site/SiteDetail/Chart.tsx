@@ -1,15 +1,23 @@
+/* eslint-disable no-shadow */
 /* eslint-disable max-len */
 import React from 'react';
 import { Skeleton, Typography } from 'antd';
 import { Chart } from 'react-google-charts';
 import { useParams } from 'react-router-dom';
-import { metricService } from '../../../services';
+import { metricService, siteService } from '../../../services';
 import { options } from './Data';
 
 const ScatterChart = () => {
   const { id } = useParams<{id: string}>();
-  const { useGetMetricsQuery } = metricService;
   const { Title } = Typography;
+  const { useGetMetricsQuery } = metricService;
+  const { useGetSitesQuery } = siteService;
+  const { site } = useGetSitesQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      site: data?.find((site) => site.id === +id),
+    }),
+  });
+
   const {
     data: metrics, error, isError, isLoading,
   } = useGetMetricsQuery(+id);
@@ -31,7 +39,7 @@ const ScatterChart = () => {
             width="100%"
             height="700px"
             data={series}
-            options={options}
+            options={options(site?.name)}
           />
         </Skeleton>
       ) : (

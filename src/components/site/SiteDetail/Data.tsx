@@ -1,8 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-export const options = {
-  title:
-      'This Table shows the Correlation between Time and Supply rate '
-      + 'of fruits (2022)',
+export const options = (name: string | undefined) => ({
+  title: `This Table shows the Correlation between Time and Supply rate of ${name} (2022)`,
   hAxis: { title: 'Time' },
   vAxis: { title: 'Supply Rate', minValue: 0, maxValue: 100 },
   bubble: {
@@ -15,4 +13,4 @@ export const options = {
       auraColor: 'none',
     },
   },
-};
+});

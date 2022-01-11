@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card as AntdCard, Col, Row } from 'antd';
+import { Card as AntdCard, Col } from 'antd';
 import { CardProps } from './types';
 
 const Card = ({
