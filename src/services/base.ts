@@ -1,59 +1,70 @@
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
+import { providesList } from '../helpers';
+
 type BaseServiceProps = {
-    getEntity: (id: number) => string;
-    getEntities:() => string;
-    updateEntity<T>(id:number, body: T): void;
-    addEntity<T>(body: T): void;
-    deleteEntity: (id: number) => void;
+  getEntity: () => void;
+  getEntities: () => void;
+  updateEntity: () => void;
+  addEntity: () => void;
+  deleteEntity: () => void;
 }
 
 class BaseService implements BaseServiceProps {
   constructor(
-      public url: string,
-      public tagType: string,
+    public url: string,
+    public tagType: string,
   ) {
     this.url = url;
     this.tagType = tagType;
   }
 
-  getEntity(id: number) {
-    return `${this.url}/${id}`;
+  getEntity() {
+    return {
+      query: (id: number) => `${this.url}/${id}`,
+      providesTags: (result: any[] | undefined, error: FetchBaseQueryError
+        | undefined, id: number) => [{ type: this.tagType }],
+    };
   }
 
   getEntities() {
-    return this.url;
-  }
-
-  updateEntity<T>(id: number, body: T) {
     return {
-      url: `${this.url}/${id}`,
-      method: 'PATCH',
-      body,
+      query: () => this.url,
+      providesTags: (result: any[] | undefined) => providesList(result, this.tagType),
     };
   }
 
-  // addEntity() {
-  //   return {
-  //     query: (body: any) => ({
-  //       url: this.url,
-  //       method: 'POST',
-  //       body,
-  //     }),
-  //     invalidatesTags: [{ type: this.tagType, id: 'LIST' }],
-  //   };
-  // }
-
-  addEntity<T>(body: T) {
+  updateEntity() {
     return {
-      url: this.url,
-      method: 'POST',
-      body,
+      query: ({ id, ...patch }: { id: number }) => ({
+        url: `${this.url}/${id}`,
+        method: 'PATCH',
+        body: patch,
+      }),
+      invalidatesTags: (result: void | undefined, error: FetchBaseQueryError
+        | undefined, { id }: { id: number }) => [{ type: this.tagType, id }],
     };
   }
 
-  deleteEntity(id: number) {
+  addEntity() {
     return {
-      url: `${this.url}/${id}`,
-      method: 'DELETE',
+      query: <T>(body: T) => ({
+        url: this.url,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: this.tagType, id: 'LIST' }],
+    };
+  }
+
+  deleteEntity() {
+    return {
+      query: (id: number) => ({
+        url: `${this.url}/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (result: { success: boolean; id: number }
+        | undefined, error: FetchBaseQueryError
+          | undefined, id: number) => [{ type: this.tagType, id }],
     };
   }
 }

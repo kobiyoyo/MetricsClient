@@ -12,10 +12,7 @@ const metricTag = baseApi.enhanceEndpoints({ addTagTypes: [metric.tagType] });
 // Create Query for CRUD operation
 const metricApi = metricTag.injectEndpoints({
   endpoints: (builder) => ({
-    addMetric: builder.mutation<AddMerticProps, Partial<AddMerticProps>>({
-      query: (body) => metric.addEntity(body),
-      invalidatesTags: [{ type: metric.tagType, id: 'LIST' }],
-    }),
+    addMetric: builder.mutation<AddMerticProps, Partial<AddMerticProps>>(metric.addEntity()),
     getMetrics: builder.query<MetricsApiProps, number>({
       query: (siteId) => metric.getMetrics(siteId),
       providesTags: (result) => providesList(result, metric.tagType),

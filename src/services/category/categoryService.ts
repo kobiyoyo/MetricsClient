@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/prefer-default-export */
 import { providesList } from '../../helpers';
 import baseApi from '../../features/baseSlice';
@@ -12,10 +13,7 @@ const categoryTag = baseApi.enhanceEndpoints({ addTagTypes: [category.tagType] }
 // Create Query for CRUD operation
 const categoryApi = categoryTag.injectEndpoints({
   endpoints: (builder) => ({
-    addCategory: builder.mutation<CategoryApiProps, Partial<CategoryApiProps>>({
-      query: (body) => category.addEntity(body),
-      invalidatesTags: [{ type: category.tagType, id: 'LIST' }],
-    }),
+    addCategory: builder.mutation<CategoryApiProps, Partial<CategoryApiProps>>(category.addEntity()),
     getCategories: builder.query<CategoriesApiProps, number>({
       query: (siteId) => category.getCategories(siteId),
       providesTags: (result) => providesList(result, category.tagType),
